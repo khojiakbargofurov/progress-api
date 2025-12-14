@@ -48,6 +48,17 @@ const Message = require('./models/messageModel');
 const startServer = async () => {
     await DataBase();
 
+    // Debugging: Check critical environment variables
+    const requiredEnv = ['JWT_SECRET', 'GOOGLE_CLIENT_ID'];
+    const missingEnv = requiredEnv.filter(key => !process.env[key]);
+
+    if (missingEnv.length > 0) {
+        console.error('CRITICAL WARNING: Missing environment variables:', missingEnv.join(', '));
+        console.error('Authentication functionality may fail.');
+    } else {
+        console.log('All critical environment variables are loaded correctly. ✅');
+    }
+
     const port = process.env.PORT || 5000;
     const server = app.listen(port, () => {
         console.log(`App running on port ${port}...`);
