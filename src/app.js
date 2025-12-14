@@ -15,7 +15,9 @@ const chatRoutes = require('./routes/chatRoutes'); // Import chat routes
 const setupSwagger = require('./config/swagger');
 
 // Middlewares
-app.use(helmet());
+app.use(helmet({
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
+}));
 app.use(cors({
     origin: ["http://localhost:5173", "https://progress-uz.vercel.app"],
     credentials: true
